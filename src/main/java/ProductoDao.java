@@ -7,7 +7,7 @@ public class ProductoDao {
 
     public ProductoDao() throws SQLException {
         new Driver();
-        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "password"); // TODO: Change db name
+        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp1", "root", "password"); // TODO: Change db name
     }
 
     public void createTable() throws SQLException {
@@ -33,6 +33,18 @@ public class ProductoDao {
         query.setMaxRows(1);
         ResultSet result = query.executeQuery();
 
+        Producto p = null;
+        while (result.next()) {
+            p = new Producto(result.getInt(1), result.getString(2), result.getFloat(3));
+        }
+        return p;
+    }
+
+    public Producto getMoreCollected() throws SQLException {
+        PreparedStatement query = this.connection.prepareStatement("SELECT P.* FROM Factura_Producto " +
+                "JOIN Producto P on P.idProducto = Factura_Producto.idProducto " +
+                "ORDER BY (cantidad * P.valor) desc LIMIT 1");
+        ResultSet result = query.executeQuery();
 
         Producto p = null;
         while (result.next()) {

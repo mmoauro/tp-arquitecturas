@@ -8,22 +8,11 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class Main {
-    private static String path = Paths.get("").toAbsolutePath().toString() + "/tp1/csvs/";
+    private static String path = Paths.get("").toAbsolutePath().toString() + "/integrador/csvs/";
     private static CSVParser parser;
 
-    public static void main(String[] args) throws SQLException, IOException {
-        ProductoDao productoDao = new ProductoDao();
-        ClienteDao clienteDao = new ClienteDao();
-        FacturaDao facturaDao = new FacturaDao();
-        FacturaProductoDao facturaProductoDao = new FacturaProductoDao();
-        productoDao.createTable();
-        clienteDao.createTable();
-        facturaDao.createTable();
-        facturaProductoDao.createTable();
-        readAndInsertProducts();
-        readAndInsertCustomers();
-        readAndInsertInvoices();
-        readAndInsertProductInvoices();
+    public static void main(String[] args) {
+
     }
 
     private static void updatePath (String path) throws IOException {

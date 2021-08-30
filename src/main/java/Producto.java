@@ -37,4 +37,8 @@ public class Producto {
         return this.idProdcuto;
     }
 
+    public String toString() {
+        return this.idProdcuto + " - " + this.name;
+    }
+
 }

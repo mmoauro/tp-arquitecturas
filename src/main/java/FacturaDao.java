@@ -7,7 +7,7 @@ public class FacturaDao {
 
     public FacturaDao() throws SQLException {
         new Driver();
-        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "password"); // TODO: Change db name
+        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tp1", "root", "password"); // TODO: Change db name
     }
 
     public void createTable() throws SQLException {
