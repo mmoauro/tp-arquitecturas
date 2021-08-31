@@ -1,3 +1,7 @@
+package Entities;
+
+import EntitiesInterface.ProductoDao;
+
 import java.sql.SQLException;
 
 public class Producto {
@@ -6,12 +10,12 @@ public class Producto {
     private String name;
     private float valor;
 
-    public Producto () throws SQLException {
-        this.dao = new ProductoDao();
-    }
+    /*public Entities.Producto () throws SQLException {
+        this.dao = new MySQLDAOEntities.MySQLProductoDAO();
+    }*/
 
     public Producto (int idProdcuto, String name, float valor) throws SQLException {
-        this();
+        //this();
         this.idProdcuto = idProdcuto;
         this.name = name;
         this.valor = valor;

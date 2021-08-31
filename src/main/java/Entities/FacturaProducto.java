@@ -1,3 +1,5 @@
+package Entities;
+
 public class FacturaProducto {
     private Factura factura;
     private Producto producto;
