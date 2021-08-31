@@ -16,7 +16,7 @@ import java.sql.*;
 public class MySQLProductoDAO implements ProductoDao {
 
     public void createTable() throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         String query = "CREATE TABLE Producto (" +
                 "idProducto int NOT NULL, " +
                 "nombre VARCHAR(55) NOT NULL," +
@@ -37,7 +37,7 @@ public class MySQLProductoDAO implements ProductoDao {
     }
 
     public void insert(Producto producto) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("INSERT INTO Producto (idProducto, nombre, valor) VALUES (?,?,?)");
         query.setInt(1, producto.getIdProdcuto());
         query.setString(2, producto.getName());
@@ -48,7 +48,7 @@ public class MySQLProductoDAO implements ProductoDao {
     }
 
     public Producto getById (int id) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("SELECT * FROM Producto WHERE idProducto = ?");
         query.setInt(1, id);
         query.setMaxRows(1);
@@ -63,7 +63,7 @@ public class MySQLProductoDAO implements ProductoDao {
     }
 
     public Producto getMoreCollected() throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("SELECT P.* FROM Factura_Producto " +
                 "JOIN Producto P on P.idProducto = Factura_Producto.idProducto " +
                 "ORDER BY (cantidad * P.valor) desc LIMIT 1");

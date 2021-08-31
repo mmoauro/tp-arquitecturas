@@ -18,7 +18,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
 
 
-    public static Connection creatConnection() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, SQLException {
+    public static Connection createConnection() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, SQLException {
         Class.forName(driver).getDeclaredConstructor().newInstance();
         Connection conn = DriverManager.getConnection(uri, user, password);
         conn.setAutoCommit(false);

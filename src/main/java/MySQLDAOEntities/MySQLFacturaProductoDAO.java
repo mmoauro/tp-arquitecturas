@@ -1,8 +1,6 @@
 package MySQLDAOEntities;
 import DAOFactories.MySQLDAOFactory;
 import Entities.FacturaProducto;
-import Entities.Producto;
-import EntitiesInterface.ClienteDao;
 import EntitiesInterface.FacturaDao;
 import EntitiesInterface.FacturaProductoDao;
 import EntitiesInterface.ProductoDao;
@@ -19,7 +17,7 @@ import java.sql.*;
 public class MySQLFacturaProductoDAO implements FacturaProductoDao {
 
     public void createTable() throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         String query = "CREATE TABLE Factura_Producto (" +
                 "idFactura int NOT NULL, " +
                 "idProducto int NOT NULL," +
@@ -46,7 +44,7 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDao {
     }
 
     public void insert (FacturaProducto facturaProducto) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("INSERT INTO Factura_Producto (idFactura, idProducto, cantidad) VALUES (?,?,?)");
         query.setInt(1, facturaProducto.getFactura().getIdFactura());
         query.setInt(2, facturaProducto.getProducto().getIdProdcuto());
@@ -57,7 +55,7 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDao {
     }
 
     public FacturaProducto getById (int id) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("SELECT * FROM Factura_Producto WHERE idFactura = ?");
         query.setInt(1, id);
         query.setMaxRows(1);

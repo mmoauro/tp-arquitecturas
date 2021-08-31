@@ -15,7 +15,7 @@ import java.sql.*;
 public class MySQLFacturaDAO implements FacturaDao {
 
     public void createTable() throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         String query = "CREATE TABLE Factura (" +
                 "idFactura int NOT NULL, " +
                 "idCliente int NOT NULL," +
@@ -38,7 +38,7 @@ public class MySQLFacturaDAO implements FacturaDao {
     }
 
     public void insert (Factura factura ) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("INSERT INTO Factura (idFactura, idCliente) VALUES (?,?)");
         query.setInt(1, factura.getIdFactura());
         query.setInt(2, factura.getCustomer().getIdCliente());
@@ -48,7 +48,7 @@ public class MySQLFacturaDAO implements FacturaDao {
     }
 
     public Factura getById (int id) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         ClienteDao clienteDao = new MySQLClienteDAO();
         PreparedStatement query = conn.prepareStatement("SELECT * FROM Factura WHERE idFactura = ?");
         query.setInt(1, id);

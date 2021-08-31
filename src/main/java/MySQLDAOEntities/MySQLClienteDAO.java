@@ -22,7 +22,7 @@ public class MySQLClienteDAO implements ClienteDao {
                 "nombre VARCHAR(500)," +
                 "email VARCHAR(150)," +
                 "PRIMARY KEY(idCliente))";
-        Connection conn = MySQLDAOFactory.creatConnection(); //Creo la conexion
+        Connection conn = MySQLDAOFactory.createConnection(); //Creo la conexion
         conn.prepareStatement(query).execute(); //Ejecuto Query
         conn.close(); //Cierro conexion
     }
@@ -38,7 +38,7 @@ public class MySQLClienteDAO implements ClienteDao {
     }
 
     public void insert(Cliente cliente) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("INSERT INTO Cliente (idCliente, nombre, email) VALUES (?,?,?)");
         query.setInt(1, cliente.getIdCliente());
         query.setString(2, cliente.getNombre());
@@ -49,7 +49,7 @@ public class MySQLClienteDAO implements ClienteDao {
     }
 
     public Cliente getById(int id) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("SELECT * FROM Cliente WHERE idCliente = ?");
         query.setInt(1, id);
         query.setMaxRows(1);
@@ -65,7 +65,7 @@ public class MySQLClienteDAO implements ClienteDao {
     }
 
     public ArrayList<Cliente> getCustomersOrderByInvoiced() throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Connection conn = MySQLDAOFactory.creatConnection();
+        Connection conn = MySQLDAOFactory.createConnection();
         PreparedStatement query = conn.prepareStatement("SELECT C.*, SUM(P.valor * FP.cantidad) AS invoiced FROM Factura " +
                 "JOIN Cliente C on Factura.idCliente = C.idCliente " +
                 "JOIN Factura_Producto FP on Factura.idFactura = FP.idFactura " +
