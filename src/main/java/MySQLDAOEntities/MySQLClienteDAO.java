@@ -3,8 +3,14 @@ package MySQLDAOEntities;
 import DAOFactories.MySQLDAOFactory;
 import Entities.Cliente;
 import EntitiesInterface.ClienteDao;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,6 +25,16 @@ public class MySQLClienteDAO implements ClienteDao {
         Connection conn = MySQLDAOFactory.creatConnection(); //Creo la conexion
         conn.prepareStatement(query).execute(); //Ejecuto Query
         conn.close(); //Cierro conexion
+    }
+
+    public void readAndInsertCustomers() throws SQLException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        String path = Paths.get("").toAbsolutePath().toString() + "/csvs/clientes.csv";
+        CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(path));;
+
+        for (CSVRecord row : parser) {
+            Entities.Cliente c = new Entities.Cliente(Integer.valueOf(row.get("idCliente")), row.get("nombre"), row.get("email"));
+            this.insert(c);
+        }
     }
 
     public void insert(Cliente cliente) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

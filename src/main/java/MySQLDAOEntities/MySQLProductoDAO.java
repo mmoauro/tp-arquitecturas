@@ -29,7 +29,7 @@ public class MySQLProductoDAO implements ProductoDao {
     public void readAndInsertProducts () throws SQLException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         String path = Paths.get("").toAbsolutePath().toString() + "/csvs/productos.csv";
         CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(path));;
-        //ProductoDao productoDao = MySQLDAOFactory.getProductoDAO();
+
         for (CSVRecord row : parser) {
             Entities.Producto p = new Entities.Producto(Integer.valueOf(row.get("idProducto")), row.get("nombre"), Float.valueOf(row.get("valor")));
             this.insert(p);

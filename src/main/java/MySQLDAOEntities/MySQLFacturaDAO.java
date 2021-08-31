@@ -2,8 +2,14 @@ package MySQLDAOEntities;
 import DAOFactories.MySQLDAOFactory;
 import Entities.*;
 import EntitiesInterface.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
 import java.sql.*;
 
 public class MySQLFacturaDAO implements FacturaDao {
@@ -17,6 +23,18 @@ public class MySQLFacturaDAO implements FacturaDao {
                 "FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente))";
         conn.prepareStatement(query).execute();
         conn.close();
+    }
+
+    public void readAndInsertInvoices() throws SQLException, IOException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        String path = Paths.get("").toAbsolutePath().toString() + "/csvs/facturas.csv";
+        CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(path));;
+
+        for (CSVRecord row : parser) {
+            ClienteDao clienteDao = new MySQLClienteDAO();
+            Entities.Cliente c =  clienteDao.getById(Integer.valueOf(row.get("idCliente")));
+            Entities.Factura f = new Entities.Factura(Integer.valueOf(row.get("idFactura")), c);
+            this.insert(f);
+        }
     }
 
     public void insert (Factura factura ) throws SQLException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
