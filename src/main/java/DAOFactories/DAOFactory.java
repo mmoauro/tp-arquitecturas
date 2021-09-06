@@ -10,6 +10,8 @@ public abstract class DAOFactory {
 
 
     public static DAOFactory getDAOFactory(int factoryId) {
+        // Este metodo te devuelve un DAO dependiendo de la tecnologia que se esta usando.
+        // Para cada tecnologia se tiene un DAO, que implementa los metodos abstractos de esta clase.
         switch (factoryId) {
             case 1:
                 return new MySQLDAOFactory();

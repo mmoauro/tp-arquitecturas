@@ -5,7 +5,6 @@ import MySQLDAOEntities.MySQLClienteDAO;
 import MySQLDAOEntities.MySQLFacturaDAO;
 import MySQLDAOEntities.MySQLFacturaProductoDAO;
 import MySQLDAOEntities.MySQLProductoDAO;
-
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +18,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
 
     public static Connection createConnection() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, SQLException {
+        // Crea una conexion a la base de datos y la devuelve.
         Class.forName(driver).getDeclaredConstructor().newInstance();
         Connection conn = DriverManager.getConnection(uri, user, password);
         conn.setAutoCommit(false);
