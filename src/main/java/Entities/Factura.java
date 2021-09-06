@@ -1,3 +1,5 @@
+package Entities;
+
 public class Factura {
     private Cliente customer;
     private int idFactura;
