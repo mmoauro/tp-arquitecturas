@@ -27,9 +27,15 @@ public class Estudiante {
     @ManyToMany
     private List<Carrera> carreras;
 
-    public Estudiante (int id) {
-        this();
-        this.dni = id;
+    public Estudiante(int dni, String nombre, String apellido, int edad, Genero genero, String ciudad, int numeroLibreta) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.genero = genero;
+        this.ciudad = ciudad;
+        this.numeroLibreta = numeroLibreta;
+        this.carreras = new ArrayList<>();
     }
 
     public Estudiante() {
