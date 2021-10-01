@@ -98,6 +98,10 @@ public class Estudiante {
         return carreras;
     }
 
+    public int getDni() {
+        return dni;
+    }
+
     public String toString() {
         return this.dni + "";
     }

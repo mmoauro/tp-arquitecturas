@@ -1,8 +1,11 @@
 import Entities.Carrera;
 import Entities.Estudiante;
+import Entities.EstudianteCarreraInformacion;
 import Entities.Genero;
 import Services.CarreraService;
 import Services.EstudianteService;
+
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,7 +17,7 @@ public class Main {
         carreraService.addCarrera(c);
         carreraService.addCarrera(c2);
         estudianteService.addEstudiante(fefe);
-        estudianteService.addCarrera(fefe, c2);
+        estudianteService.addCarrera(fefe, c2, 1);
         Estudiante morro = new Estudiante(43867577,"morro","moauro",19, Genero.MASCULINO,"TANDIL",73);
         estudianteService.addEstudiante(morro);
         System.out.println(estudianteService.getEstudiantes("id", "desc"));

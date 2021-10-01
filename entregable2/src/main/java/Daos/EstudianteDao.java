@@ -11,20 +11,7 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstudianteDao {
-
-    private Session startTransaction() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("entregable2");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Session session = em.unwrap(Session.class);
-        return session;
-    }
-
-    private void closeConnection(EntityManager em) {
-        em.getTransaction().commit();
-        em.close();
-    }
+public class EstudianteDao extends DaoStructure {
 
     public void add(Estudiante estudiante) {
         Session em = this.startTransaction();

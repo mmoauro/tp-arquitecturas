@@ -8,20 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
 
-public class CarreraDao {
+public class CarreraDao extends DaoStructure {
 
-    private Session startTransaction() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("entregable2");
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Session session = em.unwrap(Session.class);
-        return session;
-    }
-
-    private void closeConnection(EntityManager em) {
-        em.getTransaction().commit();
-        em.close();
-    }
 
     public void add (Carrera carrera) {
         Session em = this.startTransaction();
