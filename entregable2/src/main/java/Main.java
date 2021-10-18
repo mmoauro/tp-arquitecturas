@@ -1,19 +1,25 @@
 import Entities.Carrera;
 import Entities.Estudiante;
+import Entities.EstudianteCarreraInformacion;
+import Entities.Genero;
 import Services.CarreraService;
 import Services.EstudianteService;
 
+import java.util.Date;
+
 public class Main {
     public static void main(String[] args) {
-        Estudiante morro = new Estudiante(123);
-        Carrera c = new Carrera(39);
+        Carrera c = new Carrera(1, "tudai");
+        Carrera c2 = new Carrera(2, "Ing en sistemas");
+        Estudiante fefe = new Estudiante(43867576,"fefe","medina",19, Genero.MASCULINO,"TANDIL",72);
         EstudianteService estudianteService = new EstudianteService();
         CarreraService carreraService = new CarreraService();
         carreraService.addCarrera(c);
+        carreraService.addCarrera(c2);
+        estudianteService.addEstudiante(fefe);
+        estudianteService.addCarrera(fefe, c2, 1);
+        Estudiante morro = new Estudiante(43867577,"morro","moauro",19, Genero.MASCULINO,"TANDIL",73);
         estudianteService.addEstudiante(morro);
-        estudianteService.addCarrera(morro, new Carrera(39));
-        Estudiante a = new Estudiante(1);
-        estudianteService.addEstudiante(a);
         System.out.println(estudianteService.getEstudiantes("id", "desc"));
     }
 }

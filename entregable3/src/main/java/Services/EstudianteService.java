@@ -5,6 +5,7 @@ import Daos.EstudianteDao;
 import Entities.Carrera;
 import Entities.Estudiante;
 import Entities.EstudianteCarreraInformacion;
+import Entities.Genero;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +51,14 @@ public class EstudianteService {
     public ArrayList<Estudiante> getEstudiantes (Carrera carrera, boolean seGraduo) {
         return this.dao.getEstudiantes(carrera, seGraduo);
     }
+    
+    public ArrayList<Estudiante> getEstudiantes (Genero genero) {
+        return (ArrayList<Estudiante>) this.dao.getEstudiante(genero);
+    }
 
-
+    public Estudiante getEstudiante(int libreta) {
+    	return this.dao.getEstudiante(libreta);
+    }
 
 
 }
