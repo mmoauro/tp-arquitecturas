@@ -3,18 +3,18 @@ package com.entregable4.entregable4.entities;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "ventas")
-public class Venta {
+@Entity(name = "sells")
+public class Sell {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToOne
-    private Producto producto;
+    private Product product;
     @ManyToOne
-    private Cliente cliente;
+    private Customer customer;
     private Date createdDate;
 
-    public Venta() {
+    public Sell() {
         this.createdDate = new Date();
     }
 
@@ -22,24 +22,24 @@ public class Venta {
         return id;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public double getMonto() {
-        return this.producto.getPrecio();
+    public double getPrice() {
+        return this.product.getPrice();
     }
 
     public Date getCreatedDate() {
