@@ -22,27 +22,47 @@ public class CustomerController {
     private static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @GetMapping("")
+    /**
+     * @return a list with all the customers.
+     */
     public ResponseEntity<List<Customer>> getCustomers() {
         return ResponseEntity.ok(this.customerService.getCustomers());
     }
 
+    /**
+     * @param id id of the customer.
+     * @return the customer with the id given.
+     */
     @GetMapping("{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") int id) {
         return ResponseEntity.ok(this.customerService.getCustomerById(id));
     }
 
+    /**
+     *
+     * @param customer customer to be created.
+     * @return the customer
+     */
     @PostMapping("")
     public ResponseEntity<Customer> createCustomer(@RequestBody() Customer customer) {
         this.customerService.createCustomer(customer);
         return ResponseEntity.ok(customer);
     }
 
+    /**
+     * @param customer customer to be u.pdated.
+     * @return the customer
+     */
     @PutMapping("")
     public ResponseEntity<Customer> updateCustomer(@RequestBody() Customer customer) {
         this.customerService.updateCustomer(customer);
         return ResponseEntity.ok(customer);
     }
 
+    /**
+     * @param id id of the customer to be deleted.
+     * @return a message with the status of the action.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") int id) {
         try {
@@ -56,6 +76,10 @@ public class CustomerController {
         }
     }
 
+    /**
+     * @param id id of the customer.
+     * @return a list with the purchases of the customer
+     */
     @GetMapping("/{id}/purchases")
     public ResponseEntity<List<Sell>> getPurchases(@PathVariable("id") int id) {
         return ResponseEntity.ok(this.customerService.getCustomerPurchases(this.customerService.getCustomerById(id)));

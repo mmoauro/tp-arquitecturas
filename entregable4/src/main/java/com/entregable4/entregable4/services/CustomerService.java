@@ -47,6 +47,11 @@ public class CustomerService {
     }
 
     @Transactional
+    public Customer getCustomerByDni(String dni) {
+        return this.repository.getCustomerByDni(dni);
+    }
+
+    @Transactional
     public List<CustomerSellDTO> getCustomersWithAmountSpend() {
         List<CustomerSellDTO> dtos = new ArrayList<>();
 

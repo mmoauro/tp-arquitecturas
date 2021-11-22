@@ -38,4 +38,15 @@ public class Product {
         return this.name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        try {
+            Product product = (Product) o;
+            return product.getId() == this.getId();
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
 }

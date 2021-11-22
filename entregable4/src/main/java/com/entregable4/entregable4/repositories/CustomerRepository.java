@@ -18,6 +18,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT SUM(p.price), c FROM Customer c INNER JOIN sells v ON c.id = v.customer.id INNER JOIN Product p ON v.product.id = p.id GROUP BY c")
     List<CustomerSellDTO> getClientesConMonto();
 
+    @Query("FROM Customer c WHERE c.dni = :dni")
+    Customer getCustomerByDni(String dni);
+
 
 
 

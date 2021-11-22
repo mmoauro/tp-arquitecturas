@@ -41,4 +41,15 @@ public class Customer {
     public void setDni(String dni) {
         this.dni = dni;
     }
+
+    @Override
+    public boolean equals (Object o) {
+        try {
+            Customer c = (Customer) o;
+            return c.getDni() != null && c.getDni().equals(this.getDni());
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }
