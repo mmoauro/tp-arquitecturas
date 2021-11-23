@@ -1,7 +1,7 @@
 package com.entregable4.entregable4.controllers;
 
 import com.entregable4.entregable4.entities.Customer;
-import com.entregable4.entregable4.entities.Sell;
+import com.entregable4.entregable4.entities.Sale;
 import com.entregable4.entregable4.services.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class CustomerController {
      * @return a list with the purchases of the customer
      */
     @GetMapping("/{id}/purchases")
-    public ResponseEntity<List<Sell>> getPurchases(@PathVariable("id") int id) {
+    public ResponseEntity<List<Sale>> getPurchases(@PathVariable("id") int id) {
         return ResponseEntity.ok(this.customerService.getCustomerPurchases(this.customerService.getCustomerById(id)));
     }
 }

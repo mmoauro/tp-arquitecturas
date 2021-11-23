@@ -2,15 +2,15 @@ package com.entregable4.entregable4.model;
 
 import com.entregable4.entregable4.entities.Customer;
 
-public class CustomerSellDTO {
+public class CustomerSaleDTO {
     private Customer customer;
     private double price;
 
-    public CustomerSellDTO() {
+    public CustomerSaleDTO() {
 
     }
 
-    public CustomerSellDTO(Customer customer, double price) {
+    public CustomerSaleDTO(Customer customer, double price) {
         this.customer = customer;
         this.price = price;
     }

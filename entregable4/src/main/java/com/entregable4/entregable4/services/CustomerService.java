@@ -1,8 +1,8 @@
 package com.entregable4.entregable4.services;
 
 import com.entregable4.entregable4.entities.Customer;
-import com.entregable4.entregable4.entities.Sell;
-import com.entregable4.entregable4.model.CustomerSellDTO;
+import com.entregable4.entregable4.entities.Sale;
+import com.entregable4.entregable4.model.CustomerSaleDTO;
 import com.entregable4.entregable4.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,7 +42,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public List<Sell> getCustomerPurchases(Customer customer) {
+    public List<Sale> getCustomerPurchases(Customer customer) {
         return this.repository.getCompras(customer.getId());
     }
 
@@ -52,17 +52,17 @@ public class CustomerService {
     }
 
     @Transactional
-    public List<CustomerSellDTO> getCustomersWithAmountSpend() {
-        List<CustomerSellDTO> dtos = new ArrayList<>();
+    public List<CustomerSaleDTO> getCustomersWithAmountSpend() {
+        List<CustomerSaleDTO> dtos = new ArrayList<>();
 
         List<Customer> customers = this.repository.findAll();
         customers.forEach(customer -> {
-            List<Sell> sells = this.repository.getCompras(customer.getId());
-            double total = sells
+            List<Sale> sales = this.repository.getCompras(customer.getId());
+            double total = sales
                     .stream()
-                    .map(Sell::getPrice)
+                    .map(Sale::getPrice)
                     .reduce((double) 0, Double::sum);
-            CustomerSellDTO dto = new CustomerSellDTO(customer, total);
+            CustomerSaleDTO dto = new CustomerSaleDTO(customer, total);
             dtos.add(dto);
         });
         return dtos;

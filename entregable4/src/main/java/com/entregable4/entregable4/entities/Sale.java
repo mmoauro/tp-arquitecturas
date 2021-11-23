@@ -3,8 +3,8 @@ package com.entregable4.entregable4.entities;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "sells")
-public class Sell {
+@Entity(name = "sales")
+public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -14,7 +14,7 @@ public class Sell {
     private Customer customer;
     private Date createdDate;
 
-    public Sell() {
+    public Sale() {
         this.createdDate = new Date();
     }
 

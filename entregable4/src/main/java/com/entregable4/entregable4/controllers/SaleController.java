@@ -1,10 +1,10 @@
 package com.entregable4.entregable4.controllers;
 
 import com.entregable4.entregable4.entities.Product;
-import com.entregable4.entregable4.entities.Sell;
-import com.entregable4.entregable4.model.CustomerSellDTO;
+import com.entregable4.entregable4.entities.Sale;
+import com.entregable4.entregable4.model.CustomerSaleDTO;
 import com.entregable4.entregable4.services.CustomerService;
-import com.entregable4.entregable4.services.SellService;
+import com.entregable4.entregable4.services.SaleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,33 +17,33 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/sells")
-public class SellController {
+@RequestMapping("/sales")
+public class SaleController {
     @Autowired
-    private SellService sellService;
+    private SaleService saleService;
     @Autowired
     private CustomerService customerService;
 
     private static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     @GetMapping("/totals")
-    public ResponseEntity<List<CustomerSellDTO>> getCustomersWithAmountSpend() {
+    public ResponseEntity<List<CustomerSaleDTO>> getCustomersWithAmountSpend() {
         return ResponseEntity.ok(this.customerService.getCustomersWithAmountSpend());
     }
 
     @PostMapping()
-    public ResponseEntity<Sell> createSell(@RequestBody() Sell sell) {
-        return ResponseEntity.ok(this.sellService.createSell(sell));
+    public ResponseEntity<Sale> createsale(@RequestBody() Sale sale) {
+        return ResponseEntity.ok(this.saleService.createSale(sale));
     }
 
     @GetMapping("/most-sold")
     public ResponseEntity<Product> getMostSoldProduct() {
-        return ResponseEntity.ok(this.sellService.getMostSoldProduct());
+        return ResponseEntity.ok(this.saleService.getMostSoldProduct());
     }
 
     @GetMapping("/by-day")
-    public ResponseEntity<HashMap<Date, List<Sell>>> getSellsGroupedByDate() {
-        return ResponseEntity.ok(this.sellService.getSellsGroupedByDate());
+    public ResponseEntity<HashMap<Date, List<Sale>>> getsalesGroupedByDate() {
+        return ResponseEntity.ok(this.saleService.getSalesGroupedByDate());
     }
 
 }
