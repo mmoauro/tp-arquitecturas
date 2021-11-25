@@ -1,10 +1,15 @@
 package com.entities;
 
 import javax.persistence.*;
+
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 @Entity(name = "ventas")
 public class Venta {
+	
+	@ApiModelProperty(notes = "Sale id", name = "id", readOnly = true)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

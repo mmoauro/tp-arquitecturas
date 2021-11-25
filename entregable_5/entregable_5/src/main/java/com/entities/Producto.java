@@ -5,8 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 public class Producto {
+	
+	@ApiModelProperty(notes = "Product id", name = "id", readOnly = true)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
