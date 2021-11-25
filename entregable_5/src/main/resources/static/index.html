@@ -4,30 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trabajo Practico 5 - Documentación y Testing</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     
-    <form id="formulario-cliente">
-        <input type="text" placeholder="Nombre" id="nombre-cliente">
-        <input type="text" placeholder="Apellido" id="apellido">
-        <input type="number" placeholder="dni" id="dni">
-        <button id="post-cliente">Enviar</button>
-    </form>
+    <article class="container">
+        <h1>Trabajo Practico 5 - Documentación y Testing</h1>
+        <h2>Clientes</h2>
+        <form id="formulario-cliente">
+            <label for="Nombre">Nombre: </label>
+            <input type="text" id="nombre-cliente">
+            <label for="Nombre">Apellido: </label>
+            <input type="text" id="apellido">
+            <label for="Nombre">DNI: </label>
+            <input type="number" id="dni">
+            <button id="post-cliente">Enviar</button>
+        </form>
 
-    <form id="formulario-producto">
-        <input type="text" placeholder="Nombre del producto" id="nombre-producto">
-        <input type="number" placeholder="Precio del producto" id="precio-producto">
-        <button id="post-producto">Enviar</button>
-    </form>
-
-    <form id="formulario-venta">
-        <select name="" id="clientes"></select>
-        <select name="" id="productos"></select>
-        <input type="date" id="date">
-        <button id="post-venta">Enviar</button>
-    </form>
-
+        <h2>Productos</h2>
+        <form id="formulario-producto">
+            <label for="Nombre">Nombre del producto: </label>
+            <input type="text" id="nombre-producto">
+            <label for="Precio">Precio del producto: </label>
+            <input type="number" id="precio-producto">
+            <button id="post-producto">Enviar</button>
+        </form>
+        <h2>Ventas</h2>
+        <form id="formulario-venta">
+            <label for="Cliente">Cliente: </label>
+            <select name="" id="clientes"></select>
+            <label for="Producto">Producto: </label>
+            <select name="" id="productos"></select>
+            <label for="Producto">Fecha de compra: </label>
+            <input type="date" id="date">
+            <button id="post-venta">Enviar</button>
+        </form>
+    </article>
     <script src="js/CRUD.js"></script>
 </body>
 </html>

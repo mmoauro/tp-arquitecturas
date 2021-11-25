@@ -18,27 +18,27 @@ public class ClienteService {
     private ClienteRepository repository;
 
     @Transactional
-    public List<Cliente> getclientes() {
+    public List<Cliente> getClientes() {
         return this.repository.findAll();
     }
 
     @Transactional
-    public Cliente getclienteById(int id) {
+    public Cliente getClienteById(int id) {
         return this.repository.getById(id);
     }
 
     @Transactional
-    public Cliente createcliente(Cliente cliente) {
+    public Cliente createCliente(Cliente cliente) {
         return this.repository.save(cliente);
     }
 
     @Transactional
-    public Cliente updatecliente(Cliente cliente) {
-        return this.createcliente(cliente);
+    public Cliente updateCliente(Cliente cliente) {
+        return this.createCliente(cliente);
     }
 
     @Transactional
-    public void deleteProduct(Cliente cliente) {
+    public void deleteCliente(Cliente cliente) {
         this.repository.delete(cliente);
     }
 
@@ -63,4 +63,10 @@ public class ClienteService {
         });
         return dtos;
     }
+    
+    @Transactional
+    public Cliente getClienteByDNI(String dni) {
+    	return this.repository.getClienteByDNI(dni);
+    }
+    
 }

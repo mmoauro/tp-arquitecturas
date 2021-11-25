@@ -48,7 +48,7 @@ public class VentaService {
     	return this.repository.getAllVentas();	
     }
     
-    
+    @Transactional
     public Venta getVentaById(int id) {
     	return this.repository.getById(id);
     }
@@ -56,5 +56,10 @@ public class VentaService {
     @Transactional
     public void deleteVenta(Venta venta) {
     	this.repository.delete(venta);
+    }
+    
+    @Transactional
+    public Venta updateVenta(Venta venta) {
+    	return this.createVenta(venta);
     }
 }

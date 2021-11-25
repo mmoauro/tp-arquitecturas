@@ -1,10 +1,15 @@
 package com.entities;
 
 import javax.persistence.*;
+
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 @Entity(name = "ventas")
 public class Venta {
+	
+	@ApiModelProperty(notes = "Sale id", name = "id", readOnly = true)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -18,7 +23,14 @@ public class Venta {
         this.createdDate = new Date();
     }
 
-    public int getId() {
+    public Venta(Producto producto, Cliente cliente) {
+		super();
+		this.producto = producto;
+		this.cliente = cliente;
+		this.createdDate = new Date();
+	}
+    
+	public int getId() {
         return id;
     }
 
@@ -49,4 +61,21 @@ public class Venta {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			Venta v = (Venta) obj;
+			return id == v.id;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return cliente+" - "+producto+" - "+createdDate;
+	}
+    
+    
 }
