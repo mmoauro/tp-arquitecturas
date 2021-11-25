@@ -21,7 +21,7 @@ function cargarPagina() {
 
     if (cliente.nombre != "" && cliente.apellido != "" && cliente.dni != null) {
       //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-      fetch('http://localhost:8080/clientes', {
+      fetch('clientes', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -167,7 +167,7 @@ function cargarPagina() {
 
     if (producto.nombre != "" && producto.precio != "" && producto.precio > 0) {
       //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-      fetch('http://localhost:8080/productos', {
+      fetch('productos', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -310,17 +310,17 @@ function cargarPagina() {
     e.preventDefault();
     var cliente_id = document.getElementById("clientes").value;
     var producto_id = document.getElementById("productos").value;
-    var date = document.getElementById("date").value;
+    var date = ""; //document.getElementById("date").value;
+
     getClienteById(cliente_id).then(function (cliente) {
       venta.cliente = cliente;
       getProductoById(producto_id).then(function (producto) {
         venta.producto = producto;
         venta.date = date;
-        console.log(venta);
 
         if (venta.cliente != null && venta.producto != null && venta.date != null) {
           //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-          fetch('http://localhost:8080/venta', {
+          fetch('ventas', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json"
@@ -329,7 +329,7 @@ function cargarPagina() {
           }).then(function (response) {
             return response.json();
           }).then(function () {
-            return renderVentas(venta);
+            return getVentas();
           })["catch"](function (error) {
             return console.log(error);
           });
@@ -344,7 +344,6 @@ function cargarPagina() {
     return fetch('clientes/' + cliente_id).then(function (response) {
       return response.json();
     }).then(function (json) {
-      console.log(json);
       return json;
     })["catch"](function (error) {
       return console.log(error);
@@ -355,7 +354,6 @@ function cargarPagina() {
     return fetch('productos/' + producto_id).then(function (response) {
       return response.json();
     }).then(function (json) {
-      console.log(json);
       return json;
     })["catch"](function (error) {
       return console.log(error);
@@ -374,13 +372,48 @@ function cargarPagina() {
   }
 
   function renderVentas(ventas) {
-    if (ventas == undefined) return;
+    var ul = document.querySelector(".lista-ventas");
+
+    if (ventas == undefined) {
+      ul.style.display = "none";
+      return;
+    }
+
     ventas.forEach(function (venta) {
-      console.log(venta);
-      lista_venta.innerHTML += "<li class='venta' id=venta-" + venta.id + ">Cliente: " + venta.cliente.nombre + " - Producto: " +
-      /* venta.producto.nombre +*/
-      " - Fecha: " + venta.fecha + "<button class='botonEliminarVenta' id=" + producto.id + ">Eliminar</button></li>";
+      ul.innerHTML += "<li class='venta' id='venta-" + venta.id + "'>" + venta.cliente.nombre + " " + venta.cliente.apellido + " - Compro: " + venta.producto.nombre + "<div class='buttons'><button class='botonEliminarVenta' id=" + venta.id + ">Eliminar</button></div></li>";
       boton_borrar_venta(); //se le da funcionalidad
+    });
+    if (ul.innerHTML != "") ul.style.display = "flex";else {
+      ul.style.display = "none";
+    }
+  }
+
+  function boton_borrar_venta() {
+    var buttons = document.getElementsByClassName('botonEliminarVenta');
+
+    var _loop5 = function _loop5(i) {
+      buttons[i].addEventListener('click', function () {
+        var id = buttons[i].id;
+        borrarventa_en_servidor(id);
+        buttons[i].parentElement.parentElement.remove();
+      });
+    };
+
+    for (var i = 0; i < buttons.length; i++) {
+      _loop5(i);
+    }
+  }
+
+  function borrarventa_en_servidor(id) {
+    fetch('ventas/' + id, {
+      'method': 'DELETE',
+      'mode': "cors"
+    }).then(function (response) {
+      return response;
+    }).then(function (get) {
+      return getVentas();
+    })["catch"](function (error) {
+      return console.log(error);
     });
   }
 

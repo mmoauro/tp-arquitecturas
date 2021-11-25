@@ -23,7 +23,7 @@ function cargarPagina () {
         
 
         if(cliente.nombre != "" && cliente.apellido != "" && cliente.dni != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-            fetch('http://localhost:8080/clientes', {
+            fetch('clientes', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(cliente)
@@ -150,7 +150,7 @@ function cargarPagina () {
         }
         
         if(producto.nombre != "" && producto.precio != "" && producto.precio > 0){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-            fetch('http://localhost:8080/productos', {
+            fetch('productos', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(producto)
@@ -277,7 +277,7 @@ function cargarPagina () {
 
         let cliente_id = document.getElementById("clientes").value;
         let producto_id = document.getElementById("productos").value;
-        let date = document.getElementById("date").value;
+        let date = "";//document.getElementById("date").value;
 
         getClienteById(cliente_id).then(cliente => {
             venta.cliente = cliente;
@@ -285,7 +285,7 @@ function cargarPagina () {
                 venta.producto = producto;
                 venta.date = date;
                 if(venta.cliente != null && venta.producto != null && venta.date != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-                    fetch('http://localhost:8080/ventas', {
+                    fetch('ventas', {
                         method: 'POST',
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(venta)
