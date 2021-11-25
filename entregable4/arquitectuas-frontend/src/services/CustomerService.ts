@@ -10,4 +10,12 @@ export class CustomerService extends Service{
     public async getCustomers(): Promise<Customer[]> {
         return this.get<Customer>("");
     }
+
+    public async createCustomer(customer: Customer): Promise<Customer> {
+        return this.post<Customer>("", customer);
+    }
+
+    public async deleteCustomer(id: number) : Promise<string> {
+        return this.delete(`/${id}`);
+    }
 }

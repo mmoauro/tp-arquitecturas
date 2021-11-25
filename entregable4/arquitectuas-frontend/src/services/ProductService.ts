@@ -10,4 +10,8 @@ export class ProductService extends Service{
     public async getProducts(): Promise<Product[]> {
         return this.get<Product>("");
     }
+
+    public async createProduct(product: Product): Promise<Product> {
+        return this.post("", product);
+    }
 }

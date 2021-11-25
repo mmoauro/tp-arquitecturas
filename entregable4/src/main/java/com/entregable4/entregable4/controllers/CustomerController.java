@@ -69,10 +69,10 @@ public class CustomerController {
             Customer customer = this.customerService.getCustomerById(id);
             logger.info(customer.toString());
             this.customerService.deleteCustomer(customer);
-            return ResponseEntity.ok("Cliente eliminado.");
+            return ResponseEntity.ok("Customer deleted");
         }
         catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("No existe ningun cliente con ese id.");
+            return ResponseEntity.badRequest().body("it doesnt exists a customer with that id");
         }
     }
 
