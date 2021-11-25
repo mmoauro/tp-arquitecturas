@@ -284,7 +284,6 @@ function cargarPagina () {
             getProductoById(producto_id).then(producto => {
                 venta.producto = producto;
                 venta.date = date;
-                console.log(venta);
                 if(venta.cliente != null && venta.producto != null && venta.date != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
                     fetch('http://localhost:8080/ventas', {
                         method: 'POST',
@@ -292,7 +291,7 @@ function cargarPagina () {
                         body: JSON.stringify(venta)
                     })
                         .then(response =>  response.json())
-                        .then( () => renderVentas(venta)) 
+                        .then( () => getVentas()) 
                         .catch(error => console.log(error));
                 }
         
@@ -305,7 +304,6 @@ function cargarPagina () {
         return fetch('clientes/'+cliente_id)
         .then(response =>  response.json())
         .then(json => {
-            console.log(json);
             return json;
         })
         .catch(error => console.log(error));
@@ -315,7 +313,6 @@ function cargarPagina () {
         return fetch('productos/'+producto_id)
         .then(response =>  response.json())
         .then(json => {
-            console.log(json);
             return json;
         })
         .catch(error => console.log(error));
@@ -329,13 +326,41 @@ function cargarPagina () {
     }
 
     function renderVentas(ventas) {
-        if (ventas == undefined)
-            return;
+    	let ul = document.querySelector(".lista-ventas");
+		if (ventas == undefined){
+			ul.style.display = "none";
+			return;
+		}
         ventas.forEach(venta => {
-			console.log(venta);
-            lista_venta.innerHTML += "<li class='venta' id=venta-"+ venta.id+">Cliente: " + venta.cliente.nombre +" - Producto: "+/* venta.producto.nombre +*/ " - Fecha: " + venta.fecha+"<button class='botonEliminarVenta' id="+ producto.id+">Eliminar</button></li>";
-            boton_borrar_venta(); //se le da funcionalidad
+                ul.innerHTML += "<li class='venta' id='venta-"+ venta.id+"'>" + venta.cliente.nombre + " " + venta.cliente.apellido + " - Compro: " + venta.producto.nombre + "<div class='buttons'><button class='botonEliminarVenta' id="+ venta.id+">Eliminar</button></div></li>";
+                boton_borrar_venta(); //se le da funcionalidad
         });
+		if(ul.innerHTML != "")
+			ul.style.display = "flex";
+		else{
+			ul.style.display = "none";
+		}
+    }
+	
+	function boton_borrar_venta () { 
+		let buttons = document.getElementsByClassName('botonEliminarVenta');
+		for (let i = 0; i < buttons.length; i++) {
+		    buttons[i].addEventListener('click', function() {
+		        let id = buttons[i].id;
+		        borrarventa_en_servidor(id);
+		        buttons[i].parentElement.parentElement.remove();
+		    })
+		    }
+    }
+
+    function borrarventa_en_servidor(id) {
+        fetch('ventas/'+ id,{
+            'method': 'DELETE',
+            'mode': "cors"
+        })
+        .then(response =>  response)
+        .then(get => getVentas()) 
+        .catch(error => console.log(error));
     }
 
     function renderSelectClientes(clientes){
