@@ -21,6 +21,7 @@ function cargarPagina () {
             "dni": dni
         }
         
+
         if(cliente.nombre != "" && cliente.apellido != "" && cliente.dni != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
             fetch('http://localhost:8080/clientes', {
                 method: 'POST',
@@ -265,6 +266,12 @@ function cargarPagina () {
     document.getElementById("formulario-venta").appendChild(lista_venta);
     getVentas();
 
+    let venta = { 
+        "cliente": "",
+        "producto": "",
+        "date": "",
+    }
+
     document.getElementById("post-venta").addEventListener("click", function(e) {
         e.preventDefault();
 
@@ -272,41 +279,47 @@ function cargarPagina () {
         let producto_id = document.getElementById("productos").value;
         let date = document.getElementById("date").value;
 
-        let venta = { 
-            "cliente": getClienteById(cliente_id),
-            "producto": getProductoById(producto_id),
-            "date": date,
-        }
-		console.log(venta);
-        if(venta.cliente != null && venta.producto != null && venta.date != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
-            fetch('http://localhost:8080/venta', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(venta)
-            })
-                .then(response =>  response.json())
-                .then( () => renderVentas(venta)) 
-                .catch(error => console.log(error));
-        }
-
-        document.getElementById("formulario-producto").reset();  //SE RESETEAN LOS CAMPOS DEL FORMULARIO
+        getClienteById(cliente_id).then(cliente => {
+            venta.cliente = cliente;
+            getProductoById(producto_id).then(producto => {
+                venta.producto = producto;
+                venta.date = date;
+                console.log(venta);
+                if(venta.cliente != null && venta.producto != null && venta.date != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
+                    fetch('http://localhost:8080/ventas', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(venta)
+                    })
+                        .then(response =>  response.json())
+                        .then( () => renderVentas(venta)) 
+                        .catch(error => console.log(error));
+                }
+        
+                document.getElementById("formulario-producto").reset();  //SE RESETEAN LOS CAMPOS DEL FORMULARIO
+            });
+        });
     })
 
     function getClienteById(cliente_id) {
         return fetch('clientes/'+cliente_id)
         .then(response =>  response.json())
-        .then(json => {return json;})
+        .then(json => {
+            console.log(json);
+            return json;
+        })
         .catch(error => console.log(error));
     }
-
-	function getData(obj){
-	  	console.log(obj);
-	}
 	
     function getProductoById(producto_id) {
-        let producto;
-        fetch('productos/'+producto_id).then(response =>  response.json()).then(json => {producto = json}).catch(error => console.log(error));
-        return producto;
+        return fetch('productos/'+producto_id)
+        .then(response =>  response.json())
+        .then(json => {
+            console.log(json);
+            return json;
+        })
+        .catch(error => console.log(error));
+        
     }
 
 
