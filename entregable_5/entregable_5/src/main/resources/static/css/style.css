@@ -1,0 +1,175 @@
+@charset "ISO-8859-1";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+
+body{
+    background-image:
+    linear-gradient(black, black),
+    url("../images/background.jpg");
+    background-size: cover;
+    background-blend-mode: saturation;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-top: 5%;
+}
+
+h1{
+    font-size: 35px;
+    margin: 0;
+    align-self: center;
+}
+h2{
+    align-self: center;
+    margin-bottom: 0;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: rgba(221, 221, 221, 0.5);
+    border-radius: 12px;
+}
+
+input, select{
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 2px;
+    height: 20px;
+    background-color: rgba(177, 177, 177, 0.5);
+    font-size:15px;
+    height:30px;
+    width:auto;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(0, 0, 0);
+    opacity: 1; /* Firefox */
+  }
+
+button{
+    border: none;
+    background-color: rgb(144, 255, 116);
+    height: 30px;
+    width: 100px;
+    align-self: center;
+    border-radius: 12;
+    font-family: 'Comfortaa', cursive;
+    transition: all ease 300ms;
+    font-size: 15px;
+}
+
+button:hover{
+    background-color: rgb(80, 248, 38);
+}
+
+.botonEditar{
+   	margin: 10px;
+   	margin-left: 40px;
+    background-color: rgb(116, 137, 255);
+}
+
+.botonEditar:hover{
+    background-color: rgb(38, 76, 248);
+}
+
+.botonEliminarCliente{
+   	margin: 10px;
+    background-color: rgb(255, 116, 116);
+}
+
+.botonEliminarCliente:hover{
+    background-color: rgb(248, 38, 38);
+}
+
+.botonEditarProducto{
+   	margin: 10px;
+   	margin-left: 40px;
+    background-color: rgb(116, 137, 255);
+}
+
+.botonEditarProducto:hover{
+    background-color: rgb(38, 76, 248);
+}
+
+.botonEliminarProducto{
+   	margin: 10px;
+    background-color: rgb(255, 116, 116);
+}
+
+.botonEliminarProducto:hover{
+    background-color: rgb(248, 38, 38);
+}
+
+
+
+#date{
+    margin-top: 10px;
+}
+
+ul{
+    background-color: rgb(134, 134, 255);
+    border-radius: 12px;
+    width: auto;
+    align-self: center;
+    padding: 20px;
+}
+
+.lista-clientes{
+	display: none;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+}
+
+.lista-productos{
+	display: none;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+}
+
+label{
+	font-size:25px;
+}
+
+li{
+    background-color: rgb(206, 206, 255);
+    list-style: decimal;
+    margin: 10px;
+    color: rgb(15, 15, 15);
+    padding: 10px;
+    border-radius: 12px;
+    width: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#nombre-editado, #apellido-editado, #dni-editado{
+	margin: 0;
+	margin-right: 10px;
+}
