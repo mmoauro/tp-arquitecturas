@@ -49,7 +49,9 @@ function cargarPagina () {
     }
 
     function renderClientes(clientes) {
+    	let ul = document.querySelector(".lista-clientes");
 		if (clientes == undefined){
+			ul.style.display = "none";
 			return;
 		}
         clientes.forEach(cliente => {
@@ -57,7 +59,6 @@ function cargarPagina () {
                 boton_editar_cliente(); //se le da funcionalidad
                 boton_borrar_cliente(); //se le da funcionalidad
         });
-    	let ul = document.querySelector(".lista-clientes");
 		if(ul.innerHTML != "")
 			ul.style.display = "flex";
 		else{
@@ -81,9 +82,9 @@ function cargarPagina () {
             'method': 'DELETE',
             'mode': "cors"
         })
-        .then(response =>  response.json())
-        .then( () => getClientes()) 
-        .catch(error => console.log(error)); //tira error por alguna razon
+        .then(response =>  response)
+        .then(clientes => getClientes()) 
+        .catch(error => console.log(error));
     }
     
 
@@ -147,7 +148,6 @@ function cargarPagina () {
             "precio": precio,
         }
         
-        console.log(producto);
         if(producto.nombre != "" && producto.precio != "" && producto.precio > 0){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
             fetch('http://localhost:8080/productos', {
                 method: 'POST',
@@ -177,14 +177,16 @@ function cargarPagina () {
     }
     
     function renderProductos(productos) {
-		if (productos == undefined)
+    	let ul = document.querySelector(".lista-productos");
+		if (productos == undefined){
+			ul.style.display = "none";
 			return;
+		}
         productos.forEach(producto => {
             listaProducto.innerHTML += "<li class='producto' id=producto-"+ producto.id+">" + producto.nombre +" "+ producto.precio+ "<div class='buttons'><button class='botonEditarProducto' id="+ producto.id+">Editar</button><button class='botonEliminarProducto' id="+ producto.id+">Eliminar</button></div></li>";
                 boton_editar_producto(); //se le da funcionalidad
                 boton_borrar_producto(); //se le da funcionalidad
         });
-    	let ul = document.querySelector(".lista-productos");
 		if(ul.innerHTML != "")
 			ul.style.display = "flex";
 		else{
@@ -208,8 +210,8 @@ function cargarPagina () {
             'method': 'DELETE',
             'mode': "cors"
         })
-        .then(response =>  response.json())
-        .then(get => renderProductos(getProductos)) 
+        .then(response =>  response)
+        .then(get => getProductos()) 
         .catch(error => console.log(error));
     }
 
@@ -263,20 +265,6 @@ function cargarPagina () {
     document.getElementById("formulario-venta").appendChild(lista_venta);
     getVentas();
 
-    function getClienteById(cliente_id) {
-        let cliente;
-        fetch('clientes/'+cliente_id).then(response =>  response.json()).then(json => {cliente = json}).catch(error => console.log(error));
-        console.log(cliente);
-        return cliente;
-    }
-
-    function getProductoById(producto_id) {
-        let producto;
-        fetch('clientes/'+producto_id).then(response =>  response.json()).then(json => {producto = json}).catch(error => console.log(error));
-        console.log(producto);
-        return producto;
-    }
-
     document.getElementById("post-venta").addEventListener("click", function(e) {
         e.preventDefault();
 
@@ -289,7 +277,7 @@ function cargarPagina () {
             "producto": getProductoById(producto_id),
             "date": date,
         }
-
+		console.log(venta);
         if(venta.cliente != null && venta.producto != null && venta.date != null){  //SI ESTAN VACIOS LOS CAMPOS NO SE ENVIA
             fetch('http://localhost:8080/venta', {
                 method: 'POST',
@@ -304,13 +292,30 @@ function cargarPagina () {
         document.getElementById("formulario-producto").reset();  //SE RESETEAN LOS CAMPOS DEL FORMULARIO
     })
 
+    function getClienteById(cliente_id) {
+        return fetch('clientes/'+cliente_id)
+        .then(response =>  response.json())
+        .then(json => {return json;})
+        .catch(error => console.log(error));
+    }
+
+	function getData(obj){
+	  	console.log(obj);
+	}
+	
+    function getProductoById(producto_id) {
+        let producto;
+        fetch('productos/'+producto_id).then(response =>  response.json()).then(json => {producto = json}).catch(error => console.log(error));
+        return producto;
+    }
+
+
     function getVentas(){
         lista_venta.innerHTML = ""; 
         fetch('ventas').then(response =>  response.json()).then(ventas => renderVentas(ventas)).catch(error => console.log(error));
     }
 
     function renderVentas(ventas) {
-        console.log(ventas);
         if (ventas == undefined)
             return;
         ventas.forEach(venta => {
@@ -320,57 +325,28 @@ function cargarPagina () {
         });
     }
 
-    function boton_borrar_venta () { 
-        let buttons = document.getElementsByClassName('botonEliminarVenta');
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', function() {
-                let id = buttons[i].id;
-                borrar_venta_en_servidor(id);
-            })
-        }
-    }
-    
-
-    function borrar_venta_en_servidor(id) {
-        fetch('ventas/'+ id,{
-            'method': 'DELETE',
-            'mode': "cors"
-        })
-        .then(response =>  response.json())
-        .then(() => getVentas()) 
-        .catch(error => console.log(error));
-    }
-
     function renderSelectClientes(clientes){
         let select1 = document.querySelector("#clientes");
+		select1.innerHTML = "";
         let options = select1.getElementsByTagName("option")
-        if (options.length > 0) {
-            options.forEach(option => {
-                option.remove();
-            });
-        }
 
         clientes.forEach(cliente => {
             let opt = document.createElement('option');
             opt.value = cliente.id;
-            opt.innerHTML = cliente.nombre + ": " + cliente.dni;
+            opt.innerHTML = cliente.nombre + " " + cliente.apellido + ": " + cliente.dni;
             select1.appendChild(opt);
         });
     }
 
     function renderSelectProductos(productos){
         let select2 = document.querySelector("#productos");
-        let options = select2.getElementsByTagName("option");
-        if (options.length > 0) {
-            options.forEach(option => {
-                option.remove();
-            });
-        }
+		select2.innerHTML = "";
+        let options = select2.getElementsByTagName("option")
 
         productos.forEach(producto => {
             let opt = document.createElement('option');
             opt.value = producto.id;
-            opt.innerHTML = producto.nombre + ": " + producto.precio;
+            opt.innerHTML = producto.nombre + ": $" + producto.precio;
             select2.appendChild(opt);
         });
     }
